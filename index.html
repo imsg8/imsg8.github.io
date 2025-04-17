@@ -741,10 +741,12 @@
         window.addEventListener('scroll', reveal);
         window.addEventListener('load', reveal);
 
-        document.querySelectorAll('a[href]').forEach(a => {
+        // NEW: only grabs anchors whose href does NOT start with “#”
+        document.querySelectorAll('a[href]:not([href^="#"])').forEach(a => {
         a.setAttribute('target', '_blank');
         a.setAttribute('rel', 'noopener noreferrer');
         });
+
     </script>
     
 </body>

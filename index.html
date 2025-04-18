@@ -118,27 +118,128 @@
             color: #fff;
         }
         @media (max-width: 768px) {
-            #mobile-menu-open {
-                display: block;
-            }
-            #menu {
-                display: none;
-                position: fixed;
-                top: o;
-                right: 0;
-                background: #111;
-                height: 100%;
-                width: 250px;
-                flex-direction: column;
-                padding-top: 60px;
-            }
-            #menu.open {
-                display: flex;
-            }
-            #menu li {
-                margin: 20px;
-            }
+          #mobile-menu-open {
+          display: block;
         }
+
+        #menu {
+          display: none;
+          position: fixed;
+          top: 0;
+          right: 0;
+          background: #111;
+          height: 100%;
+          width: 250px;
+          flex-direction: column;
+          padding-top: 60px;
+          align-items: center;
+        }
+
+        #menu.open {
+          display: flex;
+        }
+
+        #menu li {
+          margin: 20px 0;
+        }
+
+        /* HERO / LEAD SECTION ADJUSTMENTS */
+        #lead-content h1 {
+          font-size: 32px;
+          line-height: 1.2;
+          padding: 0 15px;
+        }
+
+        #lead-content p {
+          font-size: 16px;
+          padding: 0 15px;
+        }
+
+        .btn-download {
+          font-size: 12px;
+          padding: 10px 20px;
+          margin-top: 10px;
+        }
+
+        /* CONTAINER SPACING */
+         .container {
+          padding: 30px 15px;
+        }
+
+        section {
+          padding: 60px 0;
+        }
+
+        .heading {
+          font-size: 24px;
+        }
+
+        .heading::after {
+          width: 50px;
+        }
+
+        /* EDUCATION TIMELINE MOBILE ADJUSTMENTS */
+        #education-timeline {
+          padding-left: 20px;
+        }
+
+        #education-timeline::before {
+          left: 30px;
+        }
+
+        #education-timeline .timeline-item {
+          padding-left: 40px;
+        }
+
+        #education-timeline .timeline-item::before {
+          left: -100px;
+          width: 80px;
+          font-size: 12px;
+        }
+
+        /* SKILLS SECTION */
+        .skills-list {
+          flex-direction: column;
+          gap: 12px;
+        }
+
+        .skill-item {
+          text-align: center;
+          font-size: 13px;
+        }
+
+         /* PROJECTS & CARDS */
+        .projects-grid, .cert-grid {
+          grid-template-columns: 1fr;
+          gap: 20px;
+        }
+
+        .card-body h3 {
+          font-size: 18px;
+        }
+
+        .card-body p {
+          font-size: 13px;
+        }
+
+        /* CONTACT SECTION */
+        .contact-list {
+          font-size: 14px;
+        }
+
+        .contact-list li {
+          margin-bottom: 8px;
+        }
+
+        footer {
+          font-size: 12px;
+        }
+
+        .social li a {
+          font-size: 16px;
+        }
+    }
+
         /* ================================================================= */
         /* Section Headings and Separators                                  */
         /* ================================================================= */

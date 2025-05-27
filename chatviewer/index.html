@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WhatsApp Chat Viewer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #e5ddd5;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+    header {
+      background: #075e54;
+      color: white;
+      padding: 10px;
+      text-align: center;
+    }
+    #controls {
+      display: flex;
+      padding: 10px;
+      background: #f0f0f0;
+      align-items: center;
+    }
+    #controls input[type="file"] {
+      margin-right: 10px;
+    }
+    #controls input[name="username"] {
+      flex: 1;
+      padding: 5px;
+      margin-right: 10px;
+    }
+    #controls button {
+      padding: 6px 12px;
+      background: #075e54;
+      border: none;
+      color: white;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    #chat {
+      flex: 1;
+      overflow-y: auto;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      background: url('background.png') no-repeat center center;
+    }
+    .message {
+      max-width: 60%;
+      margin: 5px 0;
+      padding: 8px 12px;
+      border-radius: 7.5px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      word-wrap: break-word;
+    }
+    .message.sent {
+      align-self: flex-end;
+      background: #dcf8c6;
+    }
+    .message.received {
+      align-self: flex-start;
+      background: white;
+    }
+    .message.notification {
+      align-self: center;
+      background: transparent;
+      color: #555;
+      font-style: italic;
+      max-width: 80%;
+      text-align: center;
+    }
+    .meta {
+      font-size: 0.75em;
+      color: #555;
+      margin-bottom: 4px;
+    }
+    .text {
+      white-space: pre-wrap;
+    }
+    #participantsBtn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 10px;
+      background: #25D366;
+      border: none;
+      border-radius: 50%;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>WhatsApp Chat Viewer</h1>
+  </header>
+  <div id="controls">
+    <input type="file" id="fileInput" accept=".txt">
+    <input type="text" name="username" id="username" placeholder="Enter your name from chat text (e.g. Shivang Gulati)">
+    <button id="loadBtn">Load Chat</button>
+  </div>
+  <div id="chat"></div>
+  <button id="participantsBtn" title="Reverse Sender/Receiver">↔️</button>
+
+  <script>
+
+    alert(
+        "We only support iOS exported chat currently, we know it's a hassle but we are working on expanding. Thank you for bearing with us."
+      );
+
+    let participants = [];
+    let rawText = '';
+    let rawUsername = '';
+    let reversed = false;
+
+    document.getElementById('loadBtn').addEventListener('click', () => {
+      const fileInput = document.getElementById('fileInput');
+      rawUsername = document.getElementById('username').value.trim();
+      if (!fileInput.files.length) return alert('Please select a chat .txt file.');
+      const reader = new FileReader();
+      reader.onload = () => {
+        rawText = reader.result;
+        reversed = false;
+        renderChat(rawText, rawUsername);
+        document.getElementById('participantsBtn').style.display = rawUsername ? 'none' : 'block';
+      };
+      reader.readAsText(fileInput.files[0]);
+    });
+
+    document.getElementById('participantsBtn').addEventListener('click', () => {
+      reversed = !reversed;
+      renderChat(rawText, rawUsername);
+    });
+
+    function parseChat(text) {
+      const msgs = [];
+      participants = [];
+      const seen = new Set();
+      const lines = text.split(/\r?\n/);
+
+      const iosPattern = /^\[(.+?)\]\s([^:]+?):\s([\s\S]*)$/;
+      const androidPattern = /^(\d{1,2}\/\d{1,2}\/\d{2,4},\s\d{1,2}:\d{2}(?::\d{2})?\s[ap]\.m\.?)\s-\s(?:(?!Messages and calls|is a contact)([^:]+?):\s)?([\s\S]*)$/;
+
+      let current = null;
+      lines.forEach(line => {
+        let match = line.match(iosPattern);
+        let isNotif = false;
+        if (!match) {
+          match = line.match(androidPattern);
+          if (match && !match[2]) isNotif = true;
+        }
+
+        if (match) {
+          const timestamp = match[1].trim();
+          let sender = null;
+          let msg = '';
+          if (match[2] && !isNotif) {
+            sender = match[2].trim();
+            msg = match[3].trim();
+          } else {
+            msg = (match[2] || match[3]).trim();
+          }
+          current = { timestamp, sender, msg, isNotif };
+          msgs.push(current);
+          if (sender && !seen.has(sender)) {
+            seen.add(sender);
+            participants.push(sender);
+          }
+        } else if (current && line.trim()) {
+          current.msg += '\n' + line.trim();
+        }
+      });
+      return msgs;
+    }
+
+    function renderChat(text, username) {
+      const chatEl = document.getElementById('chat');
+      chatEl.innerHTML = '';
+      const messages = parseChat(text);
+      messages.forEach(msg => appendMessage(msg, username));
+      chatEl.scrollTop = chatEl.scrollHeight;
+    }
+
+    function appendMessage({ timestamp, sender, msg, isNotif }, username) {
+      const chatEl = document.getElementById('chat');
+      const msgEl = document.createElement('div');
+
+      if (isNotif) {
+        msgEl.classList.add('message', 'notification');
+        msgEl.textContent = `${msg} (${timestamp})`;
+      } else {
+        let isSent;
+        if (username) {
+          isSent = sender === username;
+        } else {
+          const first = participants[0];
+          const second = participants[1];
+          isSent = sender === second;
+          if (reversed) isSent = !isSent;
+        }
+        msgEl.classList.add('message', isSent ? 'sent' : 'received');
+
+        const metaEl = document.createElement('div');
+        metaEl.className = 'meta';
+        metaEl.textContent = `${sender} — ${timestamp}`;
+        msgEl.appendChild(metaEl);
+
+        const textEl = document.createElement('div');
+        textEl.className = 'text';
+        textEl.textContent = msg;
+        msgEl.appendChild(textEl);
+      }
+      chatEl.appendChild(msgEl);
+    }
+  </script>
+</body>
+</html>

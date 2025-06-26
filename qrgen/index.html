@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Classic QR Code Generator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;1,700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    html, body {
+      height: 100%;
+      width: 100%;
+      font-family: 'Crimson Text', serif;
+      background-color: #fff;
+      color: #111;
+      overflow: hidden;
+    }
+    .container {
+      display: flex;
+      height: 100vh;
+      width: 100vw;
+      position: relative;
+    }
+    .divider {
+      position: absolute;
+      left: 50%;
+      top: 10%;
+      height: 80%;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, #000, transparent);
+      z-index: 1;
+    }
+    .sidebar {
+      width: 50%;
+      padding: 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      z-index: 2;
+    }
+    .qr-area {
+      width: 50%;
+      padding: 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 2;
+    }
+    h1 {
+      font-size: 2.4rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .sub {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      font-style: italic;
+    }
+    .desc {
+      font-size: 1rem;
+      margin-bottom: 2.5rem;
+      max-width: 500px;
+    }
+    label {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 6px;
+      margin-top: 20px;
+    }
+    input[type="url"], input[type="file"] {
+      width: 100%;
+      padding: 12px 16px;
+      font-size: 1rem;
+      border: 1px solid #111;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+    .action-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 20px;
+    }
+    button {
+      background-color: white;
+      border: 1px solid #000;
+      padding: 10px 16px;
+      font-size: 1rem;
+      cursor: pointer;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+    }
+    button img {
+      filter: invert(0);
+      transition: filter 0.3s ease;
+    }
+    button:hover {
+      background-color: #000;
+      color: #fff;
+    }
+    button:hover img {
+      filter: invert(1);
+    }
+    #removeLogoBtn {
+      display: none;
+      opacity: 0;
+      transition: opacity 0.5s ease-out;
+    }
+    #qrCanvasContainer {
+      width: 300px;
+      height: 300px;
+      border: 1px solid #111;
+      padding: 10px;
+      border-radius: 10px;
+      background-color: #fff;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #qrLogoImg {
+      position: absolute;
+      z-index: 3;
+      width: 60px;
+      height: 60px;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background: #fff;
+      border: 2px solid #fff;
+      object-fit: cover;
+      pointer-events: none;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      opacity: 0;
+      transition: opacity 0.5s;
+    }
+    #qrLogoImg.visible {
+      opacity: 1;
+    }
+    canvas {
+      width: 280px;
+      height: 280px;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+      display: block;
+      z-index: 2;
+    }
+    canvas.visible {
+      opacity: 1;
+    }
+    #placeholder {
+      position: absolute;
+      width: 280px;
+      height: 280px;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    #placeholder img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      animation: fadeIn 0.6s ease-in-out;
+    }
+    .tip {
+      margin-top: 1rem;
+      font-size: 0.95rem;
+      color: #444;
+      text-align: center;
+      max-width: 80%;
+    }
+    footer {
+      position: absolute;
+      bottom: 12px;
+      width: 100%;
+      text-align: center;
+      font-size: 0.8rem;
+      color: #888;
+      font-style: italic;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="divider"></div>
+    <div class="sidebar">
+      <h1>🕯️ The Classic QR Code Generator</h1>
+      <p class="sub">Retro styling with modern functionality.</p>
+      <p class="desc">Create clean, minimalist QR codes with optional center branding. Designed to focus only on what matters most - clean generation and export.</p>
+      <label for="url">🔗 URL to encode:</label>
+      <input type="url" id="url" placeholder="e.g. https://yourdomain.com" required>
+      <label for="logoUpload">🖼️ Optional logo (centered in QR):</label>
+      <input type="file" id="logoUpload" accept="image/*">
+      <div class="action-buttons">
+        <button id="generate">
+          <img src="assets/generate.svg" alt="Gen" width="18">Generate
+        </button>
+        <button id="download">
+          <img src="assets/download.svg" alt="Down" width="18">Download
+        </button>
+        <button id="clear">
+          <img src="assets/clear.svg" alt="Clr" width="18">Clear
+        </button>
+        <button id="removeLogoBtn">
+          <img src="assets/remove.svg" alt="Rem" width="18">Remove Image
+        </button>
+      </div>
+    </div>
+    <div class="qr-area">
+      <h2>Your QR Code:</h2>
+      <div id="qrCanvasContainer">
+        <div id="placeholder">
+          <img src="assets/hello.jpg" alt="Hello">
+        </div>
+        <canvas id="qrCanvas" width="280" height="280"></canvas>
+        <img id="qrLogoImg" />
+      </div>
+      <p class="tip">
+        📌 TIP: Upload a brand logo to personalize your QR. High contrast recommended for readability.
+      </p>
+    </div>
+  </div>
+  <footer>
+    Designed with ❤️ by Shivang Gulati
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
+  <script>
+    window.onload = () => {
+      const urlInput = document.getElementById('url');
+      const logoInput = document.getElementById('logoUpload');
+      const canvas = document.getElementById('qrCanvas');
+      const placeholder = document.getElementById('placeholder');
+      const generateBtn = document.getElementById('generate');
+      const downloadBtn = document.getElementById('download');
+      const clearBtn = document.getElementById('clear');
+      const removeLogoBtn = document.getElementById('removeLogoBtn');
+      const qrLogoImg = document.getElementById('qrLogoImg');
+      const qr = new QRious({
+        element: canvas,
+        size: 280,
+        level: 'H',
+        value: ''
+      });
+
+      let logoFile = null;
+      let logoURL = null;
+
+      generateBtn.onclick = () => {
+        const url = urlInput.value.trim();
+        if (!url)
+          return alert("Please enter a valid URL.");
+        qr.value = url;
+        canvas.classList.add('visible');
+        placeholder.style.display = 'none';
+
+        if (logoInput.files[0]) {
+          if (logoURL) URL.revokeObjectURL(logoURL);
+          logoFile = logoInput.files[0];
+          logoURL = URL.createObjectURL(logoFile);
+          qrLogoImg.src = logoURL;
+          qrLogoImg.classList.add('visible');
+          removeLogoBtn.style.display = 'flex';
+          setTimeout(() => removeLogoBtn.style.opacity = 1, 10);
+        } else {
+          logoFile = null;
+          if (logoURL) {
+            URL.revokeObjectURL(logoURL);
+            logoURL = null;
+          }
+          qrLogoImg.classList.remove('visible');
+          setTimeout(() => {
+            qrLogoImg.src = '';
+          }, 500);
+          removeLogoBtn.style.opacity = 0;
+          setTimeout(() => removeLogoBtn.style.display = 'none', 500);
+        }
+      };
+
+      removeLogoBtn.onclick = () => {
+        logoInput.value = '';
+        logoFile = null;
+        if (logoURL) {
+          URL.revokeObjectURL(logoURL);
+          logoURL = null;
+        }
+        qrLogoImg.classList.remove('visible');
+        setTimeout(() => {
+          qrLogoImg.src = '';
+        }, 500);
+        removeLogoBtn.style.opacity = 0;
+        setTimeout(() => removeLogoBtn.style.display = 'none', 500);
+      };
+
+      downloadBtn.onclick = () => {
+        if (!canvas.classList.contains('visible')) return;
+        if (qrLogoImg.classList.contains('visible')) {
+          const tempCanvas = document.createElement('canvas');
+          tempCanvas.width = canvas.width;
+          tempCanvas.height = canvas.height;
+          const ctx = tempCanvas.getContext('2d');
+          ctx.drawImage(canvas, 0, 0);
+          ctx.save();
+          ctx.beginPath();
+          ctx.arc(140, 140, 32, 0, 2 * Math.PI);
+          ctx.clip();
+          ctx.drawImage(qrLogoImg, 110, 110, 60, 60);
+          ctx.restore();
+
+          const link = document.createElement('a');
+          link.download = 'qr-code.png';
+          link.href = tempCanvas.toDataURL();
+          link.click();
+        } else {
+          const link = document.createElement('a');
+          link.download = 'qr-code.png';
+          link.href = canvas.toDataURL();
+          link.click();
+        }
+      };
+
+      clearBtn.onclick = () => {
+        urlInput.value = '';
+        logoInput.value = '';
+        logoFile = null;
+        if (logoURL) {
+          URL.revokeObjectURL(logoURL);
+          logoURL = null;
+        }
+        qr.value = '';
+        canvas.classList.remove('visible');
+        placeholder.style.display = 'block';
+        qrLogoImg.classList.remove('visible');
+        setTimeout(() => {
+          qrLogoImg.src = '';
+        }, 500);
+        removeLogoBtn.style.opacity = 0;
+        setTimeout(() => removeLogoBtn.style.display = 'none', 500);
+      };
+    };
+  </script>
+</body>
+</html>

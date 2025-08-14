@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Shivang — Sites</title>
+  <meta name="description" content="Minimal, elegant landing page linking to Shivang's projects." />
+  <meta name="theme-color" content="#0f1226" />
+  <style>
+    /* ===== Reset & base ===== */
+    *,*::before,*::after{box-sizing:border-box}
+    html,body{height:100%}
+    body{--bg:#0a0c1a;--bg-2:#0f1226;--fg:#e6e7ee;--muted:#b4b8d0;--card:#101326cc;--card-stroke:#1d2140a6;--accent:#8ea6ff;--accent-2:#b48bff;--glow:#8ea6ff55;--shadow:0 10px 30px rgba(0,0,0,.35);margin:0;overflow-x:hidden;color:var(--fg);font:16px/1.6 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";background:
+      radial-gradient(1200px 800px at 80% -10%, #1d2144 0%, transparent 60%),
+      radial-gradient(900px 600px at -10% 100%, #1a203b 0%, transparent 60%),
+      linear-gradient(180deg, var(--bg), var(--bg-2));}
+
+    @media (prefers-color-scheme: light){
+      body{--bg:#f7f8ff;--bg-2:#eef0ff;--fg:#0a0c1a;--muted:#48507a;--card:#ffffffcc;--card-stroke:#e2e6ff;--accent:#4a64ff;--accent-2:#7f5cff;--glow:#7f95ff55}
+    }
+
+    /* Subtle animated blobs */
+    .backdrop{position:fixed;inset:0;z-index:-1;filter:blur(50px);pointer-events:none}
+    .blob{position:absolute;border-radius:9999px;opacity:.35;mix-blend:screen}
+    .b1{width:42vmax;height:42vmax;background:radial-gradient(circle at 30% 30%, var(--accent), transparent 60%);left:-10vmax;top:-10vmax;animation:float1 18s ease-in-out infinite}
+    .b2{width:38vmax;height:38vmax;background:radial-gradient(circle at 60% 40%, var(--accent-2), transparent 60%);right:-8vmax;bottom:-8vmax;animation:float2 22s ease-in-out infinite}
+    @keyframes float1{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(4vmax,3vmax,0)}}
+    @keyframes float2{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(-3vmax,-4vmax,0)}}
+    @media (prefers-reduced-motion: reduce){.b1,.b2{animation:none}}
+
+    /* Layout */
+    .wrap{max-width:980px;margin:0 auto;padding:6rem 1.25rem 4rem}
+    header{display:flex;flex-direction:column;gap:.75rem;align-items:flex-start}
+    h1{margin:0;font-weight:800;letter-spacing:-.02em;line-height:1.1}
+    .title{font-size:clamp(28px,4.6vw,56px)}
+    .kicker{display:inline-flex;align-items:center;gap:.5rem;color:var(--muted);font-weight:600;font-size:.95rem;text-transform:uppercase;letter-spacing:.12em}
+    .kicker .dot{width:.45rem;height:.45rem;border-radius:9999px;background:linear-gradient(90deg,var(--accent),var(--accent-2));box-shadow:0 0 18px var(--glow)}
+    .sub{max-width:62ch;color:var(--muted);font-size:clamp(14px,1.8vw,18px)}
+
+    /* Cards */
+    .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin-top:2rem}
+    @media (max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media (max-width:640px){.grid{grid-template-columns:1fr}}
+    .card{position:relative;display:block;padding:1.25rem;border-radius:16px;background:linear-gradient(180deg, var(--card), color-mix(in oklab, var(--card) 90%, transparent));border:1px solid var(--card-stroke);text-decoration:none;color:inherit;box-shadow:var(--shadow);transform:translateY(0);transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease}
+    .card:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(0,0,0,.35);border-color:color-mix(in oklab, var(--card-stroke) 60%, var(--accent) 40%)}
+    .card:focus-visible{outline:2px solid color-mix(in oklab, var(--accent) 60%, white 40%);outline-offset:3px}
+    .card-inner{display:flex;align-items:center;gap:1rem}
+    .icon{flex:0 0 auto;width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg, color-mix(in oklab, var(--accent) 70%, transparent), color-mix(in oklab, var(--accent-2) 70%, transparent));box-shadow:0 8px 24px var(--glow)}
+    .icon svg{width:22px;height:22px}
+    .meta{display:flex;flex-direction:column}
+    .meta .name{font-weight:700;font-size:1.05rem;letter-spacing:.01em}
+    .meta .desc{color:var(--muted);font-size:.95rem}
+
+    /* Subtle card shimmer on hover */
+    .card::after{content:"";position:absolute;inset:-2px;border-radius:18px;padding:1px;background:linear-gradient(120deg, transparent 0 30%, color-mix(in oklab, var(--accent) 40%, transparent), transparent 70% 100%);-webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);-webkit-mask-composite: xor;mask-composite: exclude;opacity:0;transition:opacity .25s ease}
+    .card:hover::after{opacity:1}
+
+    /* Footer */
+    footer{margin-top:3rem;color:var(--muted);font-size:.9rem;display:flex;gap:1rem;flex-wrap:wrap;align-items:center}
+    .chip{display:inline-flex;align-items:center;gap:.5rem;border:1px solid var(--card-stroke);background:linear-gradient(180deg,var(--card),transparent);padding:.35rem .6rem;border-radius:9999px}
+    .chip .dot{width:.4rem;height:.4rem;border-radius:9999px;background:linear-gradient(90deg,var(--accent),var(--accent-2))}
+
+    /* Entrance animation */
+    .reveal{opacity:0;transform:translateY(10px);animation:up .6s cubic-bezier(.2,.7,.2,1) .05s forwards}
+    .reveal:nth-child(2){animation-delay:.12s}
+    .reveal:nth-child(3){animation-delay:.18s}
+    .reveal:nth-child(4){animation-delay:.24s}
+    @keyframes up{to{opacity:1;transform:none}}
+    @media (prefers-reduced-motion: reduce){.reveal{opacity:1;transform:none;animation:none}}
+  </style>
+</head>
+<body>
+  <!-- animated background blobs -->
+  <div class="backdrop" aria-hidden="true">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+  </div>
+
+  <div class="wrap">
+    <header>
+      <span class="kicker reveal"><span class="dot"></span> Shivang’s Work</span>
+      <h1 class="title reveal">Minimal, calm, and capable.</h1>
+      <p class="sub reveal">A compact launchpad for my projects - crafted to be fast, accessible, and just a little bit magical.</p>
+    </header>
+
+    <main class="grid" aria-label="Project links">
+      <!-- Portfolio -->
+      <a class="card reveal" href="./sgportfolio/" aria-label="Open portfolio">
+        <div class="card-inner">
+          <div class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 7h18M5 7v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7"/>
+              <path d="M9 7V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v1"/>
+            </svg>
+          </div>
+          <div class="meta">
+            <div class="name">Portfolio</div>
+            <div class="desc">Selected projects, resume, and links.</div>
+          </div>
+        </div>
+      </a>
+
+      <!-- QR Generator -->
+      <a class="card reveal" href="./qrgen/" aria-label="Open QR generator">
+        <div class="card-inner">
+          <div class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="7" rx="1.5"/>
+              <rect x="14" y="3" width="7" height="7" rx="1.5"/>
+              <rect x="3" y="14" width="7" height="7" rx="1.5"/>
+              <path d="M14 14h7M18 14v7M14 18h3"/>
+            </svg>
+          </div>
+          <div class="meta">
+            <div class="name">QR Generator</div>
+            <div class="desc">Create crisp QR codes on the fly.</div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Chat Viewer -->
+      <a class="card reveal" href="./chatviewer/" aria-label="Open chat viewer">
+        <div class="card-inner">
+          <div class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/>
+              <path d="M8 11h8M8 7h8"/>
+            </svg>
+          </div>
+          <div class="meta">
+            <div class="name">Chat Viewer</div>
+            <div class="desc">Browse chats with clarity and speed.</div>
+          </div>
+        </div>
+      </a>
+    </main>
+
+    <!-- <footer class="reveal" aria-label="About this page">
+      <span class="chip"><span class="dot"></span>Built for GitHub Pages</span>
+      <span class="chip"><span class="dot"></span>Accessible & responsive</span>
+      <span class="chip"><span class="dot"></span>No frameworks - just HTML & CSS</span>
+    </footer> -->
+  </div>
+
+  <script>
+    // Subtle pointer parallax for cards (no layout shifts)
+    const cards = document.querySelectorAll('.card');
+    const scale = 1.0;
+    const tilt = 6;
+    function handle(e){
+      const r = e.currentTarget.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      e.currentTarget.style.transform = `translateY(-4px) rotateX(${(-y*tilt).toFixed(2)}deg) rotateY(${(x*tilt).toFixed(2)}deg) scale(${scale})`;
+    }
+    function reset(e){ e.currentTarget.style.transform = 'translateY(0)'; }
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if(!media.matches){ cards.forEach(c=>{ c.addEventListener('mousemove', handle); c.addEventListener('mouseleave', reset); }); }
+  </script>
+</body>
+</html>

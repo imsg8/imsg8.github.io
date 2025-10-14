@@ -1,863 +1,851 @@
 <!DOCTYPE html>
-<html class="no-js" lang="en">
-
+<html lang="en" class="dark scroll-smooth">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Shivang Gulati - Resume</title>
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
-    <link rel="stylesheet" href="libs/font-awesome/css/font-awesome.min.css">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Shivang Gulati — Portfolio</title>
+  <meta name="description" content="Shivang Gulati — Final-year CSE undergrad. Full‑Stack + AI + embedded. Building minimal, modern, scalable products." />
+  <meta name="theme-color" content="#0a0b0f" />
+  <link rel="icon" href="favicon.ico" />
 
-    <!-- Bootstrap CSS -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-      crossorigin="anonymous"
-    />
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
 
-    <!-- Font Awesome (v4.7 for older class names like fa fa-*) -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
+  <!-- Tailwind (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: ['class'],
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'ui-sans-serif', 'Segoe UI', 'Arial'],
+            display: ['Space Grotesk', 'Inter', 'ui-sans-serif'],
+          },
+          colors: {
+            background: '#0a0b0f',
+            card: 'rgba(255,255,255,0.06)',
+            ring: 'rgba(77,171,247,0.5)'
+          },
+          boxShadow: {
+            soft: '0 10px 30px rgba(0,0,0,0.35)',
+            glow: '0 0 0 1px rgba(255,255,255,0.06), 0 8px 32px rgba(0,0,0,0.45)',
+          },
+          keyframes: {
+            fadeUp: { '0%': { opacity: 0, transform: 'translateY(18px)' }, '100%': { opacity: 1, transform: 'translateY(0)' } },
+            fadeDown: { '0%': { opacity: 0, transform: 'translateY(-10px)' }, '100%': { opacity: 1, transform: 'translateY(0)' } },
+            glowPulse: { '0%,100%': { opacity: .6 }, '50%': { opacity: 1 } },
+            floaty: { '0%,100%': { transform: 'translateY(-2px)' }, '50%': { transform: 'translateY(3px)' } },
+          },
+          animation: {
+            fadeUp: 'fadeUp .8s ease-out forwards',
+            fadeDown: 'fadeDown .6s ease-out forwards',
+            glowPulse: 'glowPulse 3.2s ease-in-out infinite',
+            floaty: 'floaty 6s ease-in-out infinite',
+          }
+        }
+      }
+    }
+  </script>
 
-    
-    <!-- ================================================================= -->
-    <!--                             STYLES                             -->
-    <!-- ================================================================= -->
-    <style>
-/* ================================================================= */
-/* Global and Reset Styles                                          */
-/* ================================================================= */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-html, body {
-  width: 100%;
-  height: 100%;
-}
-body {
-  background-color: #0a0a0a;
-  color: #e0e0e0;
-  font-family: 'Lato', sans-serif;
-  overflow-x: hidden;
-  line-height: 1.6;
-}
-a {
-  color: #4dabf7;
-  text-decoration: none;
-}
-a:hover, a:focus {
-  text-decoration: underline;
-}
-h1, h2, h3, h4, h5, h6 {
-  font-weight: 700;
-  color: #4dabf7;
-}
-p {
-  margin-bottom: 1em;
-}
-ul, ol {
-  margin-left: 1.5em;
-  margin-bottom: 1em;
-}
+  <!-- shadcn-like tokens -->
+  <style>
+    :root {
+      --bg: #0a0b0f;
+      --fg: #e6e7eb;
+      --muted: #9aa0a6;
+      --primary: #4dabf7;
+      --card: rgba(255,255,255,0.06);
+      --border: rgba(255,255,255,0.10);
+      --ring: rgba(77,171,247,0.6);
+      --success: #22c55e;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+    }
+    .glass {
+      background: var(--card);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(10px);
+    }
+    .btn {
+      --btn-ring: 0 0 0 0px var(--ring);
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease, color .2s ease;
+      box-shadow: var(--btn-ring);
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--ring); }
+    .badge {
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.04);
+      padding: .35rem .6rem;
+      border-radius: 9999px;
+      font-size: .72rem;
+      line-height: 1;
+      color: var(--fg);
+      white-space: nowrap;
+    }
+    .spotlight {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(600px circle at var(--mx) var(--my),
+          rgba(77,171,247,0.12), transparent 40%);
+      z-index: 5;
+      mix-blend-mode: screen;
+    }
+    .noise {
+      position: fixed; inset: 0; pointer-events: none; z-index: 2;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' opacity='0.05' width='80' height='80' viewBox='0 0 80 80'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'%3E%3C/feColorMatrix%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 160px 160px;
+    }
+    .gradient-mesh {
+      position: fixed; inset: -10% -10% auto -10%;
+      height: 60vh;
+      background:
+        radial-gradient(60% 60% at 10% 20%, rgba(77,171,247,0.25), transparent 60%),
+        radial-gradient(50% 50% at 80% 30%, rgba(124,58,237,0.18), transparent 60%),
+        radial-gradient(40% 40% at 50% 90%, rgba(16,185,129,0.18), transparent 60%);
+      filter: blur(40px);
+      opacity: .6;
+      z-index: 0;
+    }
+    /* Scroll-reveal: appear on scroll down, disappear when scrolling up */
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity .6s ease, transform .6s ease;
+      will-change: transform, opacity;
+    }
+    .reveal.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .tilt:hover {
+      transform: perspective(1000px) rotateX(2deg) rotateY(-2deg) translateY(-2px);
+    }
+    /* Reduce motion accessibility */
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { transition: none; transform: none !important; opacity: 1 !important; }
+      .spotlight, .noise, .gradient-mesh { display: none; }
+    }
+  </style>
 
-/* ================================================================= */
-/* Utility Classes                                                   */
-/* ================================================================= */
-.container {
-  width: 90%;
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 50px 0;
-}
-.text-center {
-  text-align: center;
-}
-.btn-download {
-  display: inline-block;
-  padding: 12px 30px;
-  border: 2px solid #4dabf7;
-  border-radius: 25px;
-  font-size: 14px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  transition: background 0.3s, color 0.3s;
-}
-.btn-download:hover {
-  background: #4dabf7;
-  color: #0a0a0a;
-}
+  <!-- Open Graph / SEO -->
+  <meta property="og:title" content="Shivang Gulati — Portfolio" />
+  <meta property="og:description" content="Final-year CSE @ MIT Manipal. Full‑Stack, AI, and embedded projects including MyCalLabs, InkFluence AI, RiPlay." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="images/og-image.jpg" />
+  <meta property="og:url" content="https://your-domain.example" />
 
-/* ================================================================= */
-/* Navigation Styles                                                 */
-/* ================================================================= */
-header {
-  position: fixed;
-  width: 100%;
-  top: 0;
-  left: 0;
-  background: rgba(10,10,10,0.95);
-  z-index: 1000;
-}
-#mobile-menu-open {
-  display: none;
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  font-size: 24px;
-  cursor: pointer;
-  z-index: 1001;
-}
-#menu {
-  list-style: none;
-  display: flex;
-  justify-content: center;
-  padding: 20px 0;
-}
-#menu li {
-  margin: 0 15px;
-}
-#menu li a {
-  font-size: 16px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  transition: color 0.3s;
-}
-#menu li a:hover {
-  color: #fff;
-}
-
-/* ================================================================= */
-/* Section Headings and Separators                                  */
-/* ================================================================= */
-section {
-  padding: 100px 0;
-  position: relative;
-}
-section:nth-of-type(even) {
-  background: #111;
-}
-.heading {
-  font-size: 32px;
-  text-align: center;
-  margin-bottom: 50px;
-  position: relative;
-}
-.heading::after {
-  content: '';
-  display: block;
-  width: 80px;
-  height: 3px;
-  background: #4dabf7;
-  margin: 15px auto 0;
-}
-
-/* ================================================================= */
-/* Animations                                                        */
-/* ================================================================= */
-.fade-element {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.8s ease-out;
-}
-.fade-element.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-.slide-in-left {
-  opacity: 0;
-  transform: translateX(-50px);
-  transition: all 0.8s ease-out;
-}
-.slide-in-left.visible {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-/* ================================================================= */
-/* Lead / Hero Section                                               */
-/* ================================================================= */
-#lead {
-  height: 100vh;
-  background: url('images/hero-bg.png') center center/cover no-repeat;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-}
-#lead-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(10,10,10,0.5);
-}
-#lead-content {
-  position: relative;
-  text-align: center;
-  z-index: 2;
-  max-width: 800px;
-}
-#lead-content h1 {
-  font-size: 56px;
-  margin-bottom: 20px;
-  line-height: 1.1;
-}
-#lead-content p {
-  font-size: 20px;
-  margin-bottom: 30px;
-}
-
-/* ================================================================= */
-/* Timeline (Education)                                              */
-/* ================================================================= */
-#education-timeline {
-  position: relative;
-  padding-left: 100px;
-  display: flex;
-  flex-direction: column;
-  gap: 60px;
-}
-#education-timeline .timeline-item {
-  position: relative;
-  padding-left: 80px;
-}
-#education-timeline::before {
-  content: '';
-  position: absolute;
-  left: 120px;
-  top: 0;
-  bottom: 0;
-  width: 4px;
-  background: #4dabf7;
-}
-#education-timeline .timeline-item::before {
-  content: attr(data-date);
-  position: absolute;
-  left: -200px;
-  top: 0;
-  font-size: 14px;
-  color: #aaa;
-  width: 160px;
-  text-align: right;
-}
-
-/* ================================================================= */
-/* Skills Section                                                    */
-/* ================================================================= */
-.skills-category {
-  margin-bottom: 60px;
-}
-.skills-category h3 {
-  font-size: 24px;
-  color: #4dabf7;
-  margin-bottom: 20px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  text-align: left;
-}
-.skills-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-.skill-item {
-  background: #1a1a1a;
-  padding: 12px 20px;
-  border-radius: 20px;
-  font-size: 14px;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.5s ease-out;
-}
-.skill-item.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ================================================================= */
-/* Projects & Certifications                                         */
-/* ================================================================= */
-.projects-grid, .cert-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 30px;
-}
-.card {
-  background: #1a1a1a;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.5);
-  transform: translateY(20px);
-  opacity: 0;
-  transition: all 0.6s ease-out;
-  border: 1px solid rgba(255,255,255,0.08);
-}
-.card.visible {
-  transform: translateY(0);
-  opacity: 1;
-}
-.card img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-.card-body {
-  padding: 20px;
-}
-.card-body h3 {
-  margin-bottom: 10px;
-  font-size: 20px;
-}
-.card-body p {
-  font-size: 14px;
-  line-height: 1.6;
-  margin-bottom: 10px;
-  color: white;
-}
-.card-body ul {
-  list-style: disc inside;
-  color: white;
-}
-
-/* ================================================================= */
-/* Contact & Footer                                                  */
-/* ================================================================= */
-#contact {
-  text-align: center;
-}
-.contact-list {
-  list-style: none;
-  padding: 0;
-  display: inline-block;
-  text-align: left;
-  margin-top: 20px;
-}
-.contact-list li {
-  margin-bottom: 10px;
-  font-size: 16px;
-}
-footer {
-  background: #111;
-  padding: 30px 0;
-  text-align: center;
-  font-size: 14px;
-}
-.social {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
-}
-.social li {
-  margin: 0 10px;
-}
-.social li a {
-  font-size: 18px;
-  transition: color 0.3s;
-}
-.social li a:hover {
-  color: #fff;
-}
-
-/* ================================================================= */
-/* Responsive Design: Mobile Overrides                               */
-/* ================================================================= */
-@media (max-width: 768px) {
-  #mobile-menu-open {
-    display: block;
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Person",
+    "name":"Shivang Gulati",
+    "jobTitle":"Aspiring Software Engineer",
+    "email":"mailto:shivanggulati817@gmail.com",
+    "telephone":"+918224947361",
+    "address":{"@type":"PostalAddress","addressLocality":"Manipal","addressRegion":"Karnataka","addressCountry":"IN"},
+    "url":"https://your-domain.example",
+    "sameAs":[
+      "https://www.linkedin.com/in/shivanggulati810/",
+      "https://github.com/imsg8"
+    ]
   }
-
-  #menu {
-    display: none;
-    position: fixed;
-    top: 0;
-    right: 0;
-    background: #111;
-    height: 100%;
-    width: 250px;
-    flex-direction: column;
-    padding-top: 60px;
-    align-items: center;
-  }
-
-  #menu.open {
-    display: flex;
-  }
-
-  #menu li {
-    margin: 20px 0;
-  }
-
-  #lead-content h1 {
-    font-size: 32px;
-    line-height: 1.2;
-    padding: 0 15px;
-  }
-
-  #lead-content p {
-    font-size: 16px;
-    padding: 0 15px;
-  }
-
-  .btn-download {
-    font-size: 12px;
-    padding: 10px 20px;
-    margin-top: 10px;
-  }
-
-  .container {
-    padding: 30px 15px !important;
-  }
-
-  section {
-    padding: 60px 0 !important;
-  }
-
-  .heading {
-    font-size: 24px;
-  }
-
-  .heading::after {
-    width: 50px;
-  }
-
-  #education-timeline {
-    padding-left: 20px;
-  }
-
-  #education-timeline::before {
-    left: 30px;
-  }
-
-  #education-timeline .timeline-item {
-    padding-left: 40px;
-  }
-
-  #education-timeline .timeline-item::before {
-    left: -100px;
-    width: 80px;
-    font-size: 12px;
-  }
-
-  .skills-list {
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .skill-item {
-    text-align: center;
-    font-size: 13px;
-  }
-
-  .projects-grid, .cert-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-
-  .card-body h3 {
-    font-size: 18px;
-  }
-
-  .card-body p {
-    font-size: 13px;
-  }
-
-  .contact-list {
-    font-size: 14px;
-  }
-
-  .contact-list li {
-    margin-bottom: 8px;
-  }
-
-  footer {
-    font-size: 12px;
-  }
-
-  .social li a {
-    font-size: 16px;
-  }
-}
-</style>
+  </script>
 </head>
 
-<body>
-    <!-- MOBILE MENU TOGGLE -->
-    <div id="mobile-menu-open"><i class="fa fa-bars" aria-hidden="true"></i></div>
-    <header>
-        <ul id="menu">
-            <li><a href="#lead">Home</a></li>
-            <li><a href="#summary">Summary</a></li>
-            <li><a href="#education">Education</a></li>
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#certifications">Certifications</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </header>
+<body class="bg-[var(--bg)] text-[var(--fg)] font-sans antialiased">
+  <!-- Ambient layers -->
+  <div class="gradient-mesh"></div>
+  <div class="spotlight"></div>
+  <div class="noise"></div>
 
-    <!-- LEAD / HERO SECTION -->
-    <section id="lead">
-        <div id="lead-overlay"></div>
-        <div id="lead-content">
-            <h1>Shivang Gulati</h1>
-            <p>Aspiring Software Engineer &amp; Pre‑Final Year CSE Undergraduate<br>
-               Building scalable tech solutions with Python, SwiftUI, Django, React, and embedded systems.</p>
-            <a href="assets/Shivang_Gulati_Resume.pdf" class="btn-download">Download Resume</a>
+  <!-- Top scroll progress -->
+  <div id="scroll-progress" class="fixed top-0 left-0 h-[3px] bg-[var(--primary)] z-[60]" style="width:0;"></div>
+
+  <!-- Header / Navbar -->
+  <header class="fixed top-0 w-full z-50">
+    <nav class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-4">
+      <div class="glass shadow-glow rounded-2xl px-5 py-3 flex items-center justify-between">
+        <a href="#home" class="font-display text-lg tracking-wide"><span class="text-[var(--primary)]">Shivang Gulati</span></a>
+        <div class="hidden md:flex items-center gap-1">
+          <a href="#about" class="px-3 py-2 rounded-lg hover:bg-white/5">About</a>
+          <a href="#experience" class="px-3 py-2 rounded-lg hover:bg-white/5">Experience</a>
+          <a href="#skills" class="px-3 py-2 rounded-lg hover:bg-white/5">Skills</a>
+          <a href="#projects" class="px-3 py-2 rounded-lg hover:bg-white/5">Projects</a>
+          <a href="#education" class="px-3 py-2 rounded-lg hover:bg-white/5">Education</a>
+          <a href="#certs" class="px-3 py-2 rounded-lg hover:bg-white/5">Certifications</a>
+          <a href="#contact" class="px-3 py-2 rounded-lg hover:bg-white/5">Contact</a>
         </div>
-    </section>
-
-    <!-- PROFESSIONAL SUMMARY -->
-    <section id="summary" class="fade-element">
-        <div class="container">
-            <h2 class="heading">Professional Summary</h2>
-            <p>Pre‑Final Year B.Tech. in Computer Science &amp; Engineering from Manipal Institute of Technology, expected graduation June 2026. Hands‑on experience in full‑stack development, AI integration, and embedded systems. Passionate about building intuitive digital products and collaborating in agile teams.</p>
+        <div class="flex items-center gap-2">
+          <a href="assets/Shivang_Gulati_Resume.pdf" class="btn inline-flex items-center gap-2 rounded-xl bg-white/10 hover:bg-white/20 px-3 py-2 text-sm" target="_blank" rel="noopener noreferrer">
+            <span>Resume</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M7 7h10M7 12h10M7 17h6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+          </a>
+          <button id="menuBtn" class="md:hidden btn rounded-xl px-3 py-2 hover:bg-white/10" aria-label="Open menu">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+          </button>
         </div>
-    </section>
+      </div>
+      <!-- Mobile menu -->
+      <div id="mobileMenu" class="hidden md:hidden mt-2 glass rounded-2xl px-5 py-4">
+        <div class="grid gap-2 text-sm">
+          <a class="py-2 hover:underline" href="#about">About</a>
+          <a class="py-2 hover:underline" href="#experience">Experience</a>
+          <a class="py-2 hover:underline" href="#skills">Skills</a>
+          <a class="py-2 hover:underline" href="#projects">Projects</a>
+          <a class="py-2 hover:underline" href="#education">Education</a>
+          <a class="py-2 hover:underline" href="#certs">Certifications</a>
+          <a class="py-2 hover:underline" href="#contact">Contact</a>
+        </div>
+      </div>
+    </nav>
+  </header>
 
-    <!-- EDUCATION -->
-    <section id="education">
-        <div class="container">
-          <h2 class="heading">Education</h2>
-          <div id="education-timeline">
-            <!-- B.Tech -->
-            <div class="timeline-item fade-element" data-date="Sep 2022 – Jun 2026">
-              <h3>B.Tech. in Computer Science &amp; Engineering</h3>
-              <h4>Manipal Institute of Technology</h4>
-              <p>CGPA: 8.1 | Latest Semester GPA: 8.9</p>
+  <!-- Hero -->
+  <section id="home" class="relative pt-56 pb-24">
+    <div class="pointer-events-none absolute inset-0 -z-0">
+      <div class="absolute top-24 left-1/2 -translate-x-1/2 w-[85vw] h-[85vw] max-w-[1200px] rounded-full blur-3xl opacity-30 animate-glowPulse"
+           style="background: radial-gradient(closest-side, rgba(77,171,247,.25), transparent 70%);"></div>
+    </div>
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="grid lg:grid-cols-12 items-center gap-10">
+        <div class="lg:col-span-7 reveal">
+          <div class="inline-flex items-center gap-2 mb-5">
+            <span class="badge">Final‑year CSE @ MIT Manipal</span>
+            <span class="badge">Full‑Stack Developer • AI Enthusiast • SwiftUI Programmer</span>
+          </div>
+          <h1 class="font-display text-4xl md:text-6xl leading-tight tracking-tight">
+            Building minimal, scalable & human‑friendly softwares.
+          </h1>
+          <p class="mt-5 text-lg text-[var(--muted)] max-w-2xl">
+            I’m <span class="text-[var(--fg)] font-semibold">Shivang Gulati</span>, focused on turning complex problems into clean digital products with
+            <span class="text-[var(--fg)]">Full‑Stack, Swift/SwiftUI and AI technologies.</span>
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a href="#projects" class="btn rounded-xl bg-[var(--primary)] text-black px-4 py-2 font-semibold">See Projects</a>
+            <a href="#contact" class="btn rounded-xl bg-white/10 hover:bg-white/20 px-4 py-2">Contact</a>
+          </div>
+          <!-- <div class="mt-10 flex items-center gap-4 text-sm text-[var(--muted)]">
+            <a class="hover:text-[var(--fg)] underline underline-offset-4" href="https://github.com/imsg8" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a class="hover:text-[var(--fg)] underline underline-offset-4" href="https://www.linkedin.com/in/shivanggulati810/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a class="hover:text-[var(--fg)] underline underline-offset-4" href="mailto:shivanggulati817@gmail.com">Email</a>
+          </div> -->
+        </div>
+        <div class="lg:col-span-5 reveal">
+          <!-- Bento panel -->
+          <div class="grid grid-cols-2 gap-3">
+            <div class="glass rounded-2xl p-5 shadow-soft tilt reveal" data-anim="up">
+              <div class="text-xs text-[var(--muted)] mb-2">Current focus</div>
+                <div class="font-medium">
+                  <a href="https://mycallabs.com" target="_blank" rel="noopener noreferrer" class="text-[var(--primary)] underline underline-offset-4 inline-flex items-center gap-2">
+                    MyCalLabs ↗
+                  </a>
+                </div>
+                <div class="mt-4 flex flex-wrap gap-2">
+                  <span class="badge">Full‑Stack</span><span class="badge">AI</span><span class="badge">LLM</span>
+                </div>
             </div>
-      
-            <!-- Grade 12 -->
-            <div class="timeline-item fade-element" data-date="Mar 2020 – May 2022">
-              <h3>PCM Stream – Grade 12</h3>
-              <h4>Delhi Public School</h4>
-              <p>Percentage: 81.8%</p>
+            <div class="glass rounded-2xl p-5 shadow-soft tilt reveal" data-anim="up">
+              <div class="text-xs text-[var(--muted)] mb-2">Recent</div>
+              <div class="font-medium">InkFluence AI</div>
+              <div class="mt-4 flex flex-wrap gap-2">
+                <span class="badge">Django</span><span class="badge">React</span><span class="badge">LLaMA</span>
+              </div>
             </div>
-      
-            <!-- Grade 10 -->
-            <div class="timeline-item fade-element" data-date="Mar 2018 – May 2020">
-              <h3>Grade 10</h3>
-              <h4>Delhi Public School</h4>
-              <p>Percentage: 91.8%</p>
+            <div class="col-span-2 glass rounded-2xl p-6 shadow-soft tilt reveal" data-anim="up">
+              <div class="flex items-center justify-between">
+                <div>
+                  <div class="text-xs text-[var(--muted)]">Experience</div>
+                  <div class="mt-1 font-medium">Cybersecurity Analyst Intern • IIITDM Jabalpur</div>
+                  <div class="mt-1 font-medium">Research Intern • MIT Manipal</div>
+                </div>
+                <!-- <svg width="40" height="40" viewBox="0 0 24 24" fill="none" class="opacity-70">
+                  <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg> -->
+              </div>
+              <!-- <div class="mt-4 h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
+                <div class="h-full w-3/4 bg-[var(--primary)]"></div>
+              </div> -->
+            </div>
+          </div>
+          <!-- /Bento -->
+        </div>
+      </div>
+    </div>
+    <div class="mt-40 flex justify-center">
+      <a href="#about" class="opacity-70 hover:opacity-100" aria-label="Scroll to About">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" class="animate-floaty">
+          <path d="M12 5v14m0 0l-5-5m5 5l5-5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="relative pt-28 pb-20">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-12 gap-10 items-start">
+        <div class="lg:col-span-7 reveal">
+          <h2 class="font-display text-3xl md:text-4xl mb-4">Professional Summary</h2>
+          <p class="text-[var(--muted)] leading-relaxed">
+            Aspiring Software Engineer and final‑year Computer Science undergraduate (MIT Manipal, graduating
+            <span class="text-[var(--fg)]">June 2026</span>). Hands‑on experience in full‑stack development, AI integration, and embedded systems.
+            Passionate about building scalable solutions in <span class="text-[var(--fg)]">Python, Swift/SwiftUI, Django, React</span> and translating complex problems into intuitive, delightful products. Currently focused on building <span class="text-[var(--fg)]">MyCalLabs</span>, a B2B venture which is your <span class="text-[var(--fg)]">go-to BCA report generator and AI-based meal planner</span>.
+          <!-- <div class="mt-6 flex flex-wrap gap-2">
+            <span class="badge">Full‑Stack</span>
+            <span class="badge">iOS</span>
+            <span class="badge">AI/LLM</span>
+            <span class="badge">Embedded</span>
+          </div> -->
+        </div>
+        <div class="lg:col-span-5 reveal">
+          &nbsp;
+          <div class="glass rounded-2xl p-6 shadow-glow">
+            <div class="flex items-center justify-between">
+              <div>
+                <div class="text-xs text-[var(--muted)]">Location</div>
+                <div class="font-medium">Manipal, Karnataka, India</div>
+              </div>
+              <!-- <div class="text-xs text-[var(--muted)]">Open to</div>
+              <div class="badge">SWE • iOS • ML</div> -->
+            </div>
+
+            <!-- Email: full width -->
+            <div class="mt-5 grid grid-cols-1 gap-3 text-sm">
+              <a class="glass rounded-xl px-4 py-3 hover:bg-white/10 break-words" href="mailto:shivanggulati817@gmail.com">shivanggulati817@gmail.com</a>
+            </div>
+
+            <!-- Social links: two columns -->
+            <div class="mt-5 grid grid-cols-2 gap-3 text-sm">
+              <a class="glass rounded-xl px-4 py-3 hover:bg-white/10" target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/shivanggulati810/">LinkedIn</a>
+              <a class="glass rounded-xl px-4 py-3 hover:bg-white/10" target="_blank" rel="noopener noreferrer" href="https://github.com/imsg8">GitHub</a>
+            </div>
+            
+            <!-- Download resume: full width -->
+            <div class="mt-5 grid grid-cols-1 gap-3 text-sm">
+              <a class="glass rounded-xl px-4 py-3 hover:bg-white/10 text-[var(--primary)] underline underline-offset-4 inline-flex items-center gap-2" target="_blank" rel="noopener noreferrer" href="assets/Shivang_Gulati_Resume.pdf">Download Resume ↗</a>
             </div>
           </div>
         </div>
-      </section>
-      
-      
+      </div>
+    </div>
+  </section>
 
-    <!-- SKILLS -->
-    <section id="skills">
-        <div class="container">
-          <h2 class="heading">Technical Skills</h2>
-      
-          <!-- Programming Languages -->
-          <div class="skills-category">
-            <h3>Programming Languages</h3>
-            <div class="skills-list">
-              <div class="skill-item">C</div>
-              <div class="skill-item">SwiftUI</div>
-              <div class="skill-item">Python</div>
-              <div class="skill-item">Verilog</div>
-              <div class="skill-item">ARM Assembly</div>
-              <div class="skill-item">SQL</div>
-              <div class="skill-item">HTML &amp; CSS</div>
-              <div class="skill-item">PHP</div>
-              <div class="skill-item">Bash Scripting</div>
-              <div class="skill-item">JavaScript</div>
-            </div>
-          </div>
-      
-          <!-- Libraries & Frameworks -->
-          <div class="skills-category">
-            <h3>Libraries &amp; Frameworks</h3>
-            <div class="skills-list">
-              <div class="skill-item">OpenCV</div>
-              <div class="skill-item">NumPy</div>
-              <div class="skill-item">Pandas</div>
-              <div class="skill-item">TensorFlow</div>
-              <div class="skill-item">Keras</div>
-              <div class="skill-item">Matplotlib</div>
-              <div class="skill-item">Seaborn</div>
-              <div class="skill-item">Django</div>
-              <div class="skill-item">React.js</div>
-            </div>
-          </div>
-      
-          <!-- Development Tools & Skills -->
-          <div class="skills-category">
-            <h3>Development Tools &amp; Skills</h3>
-            <div class="skills-list">
-              <div class="skill-item">iOS App Development</div>
-              <div class="skill-item">REST APIs</div>
-              <div class="skill-item">Google SDK</div>
-              <div class="skill-item">Git &amp; GitHub</div>
-              <div class="skill-item">Prompt Engineering</div>
-              <div class="skill-item">LLM Integration</div>
-            </div>
-          </div>
-      
-          <!-- Cloud & DevOps -->
-          <div class="skills-category">
-            <h3>Cloud &amp; DevOps</h3>
-            <div class="skills-list">
-              <div class="skill-item">Firebase</div>
-              <div class="skill-item">AWS (Basic)</div>
-              <div class="skill-item">Docker</div>
-              <div class="skill-item">GitHub Actions</div>
-            </div>
-          </div>
-      
-          <!-- Databases -->
-          <div class="skills-category">
-            <h3>Databases</h3>
-            <div class="skills-list">
-              <div class="skill-item">MySQL</div>
-              <div class="skill-item">PostgreSQL</div>
-              <div class="skill-item">SQL Schema Design</div>
-            </div>
-          </div>
-      
-          <!-- Operating Systems -->
-          <div class="skills-category">
-            <h3>Operating Systems</h3>
-            <div class="skills-list">
-              <div class="skill-item">Windows</div>
-              <div class="skill-item">Linux</div>
-              <div class="skill-item">macOS</div>
-            </div>
-          </div>
-      
-          <!-- IDEs & Editors -->
-          <div class="skills-category">
-            <h3>IDEs &amp; Editors</h3>
-            <div class="skills-list">
-              <div class="skill-item">VS Code</div>
-              <div class="skill-item">Xcode</div>
-              <div class="skill-item">IntelliJ IDEA</div>
-              <div class="skill-item">Code::Blocks</div>
-            </div>
-          </div>
-      
-          <!-- Soft Skills -->
-          <div class="skills-category">
-            <h3>Soft Skills</h3>
-            <div class="skills-list">
-              <div class="skill-item">Teamwork</div>
-              <div class="skill-item">Problem Solving</div>
-              <div class="skill-item">Innovation</div>
-              <div class="skill-item">Communication</div>
-              <div class="skill-item">Adaptability</div>
-              <div class="skill-item">Agile Collaboration</div>
-              <div class="skill-item">Public Speaking</div>
-            </div>
-          </div>
-      
-        </div>
-      </section>
-      
+  <!-- Experience -->
+  <section id="experience" class="relative py-20">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="mb-10">
+        <h2 class="font-display text-3xl md:text-4xl">Experience</h2>
+        <p class="mt-2 text-[var(--muted)]">Highlights from internships and research.</p>
+      </div>
 
-    <!-- PROJECTS -->
-    <section id="projects">
-        <div class="container">
-            <h2 class="heading">Projects</h2>
-            <div class="projects-grid">
-                <!-- RiPlay -->
-                <div class="card fade-element">
-                    <img src="images/riplay.png" alt="RiPlay App">
-                    <div class="card-body">
-                        <h3>RiPlay – iOS App (2024–Present)</h3>
-                        <ul>
-                            <li>Developed a white‑noise app to help toddlers sleep better using SwiftUI and Firebase crash analytics.</li>
-                            <li>Designed an interactive interface with real‑time sound controls and visuals, boosting engagement ~20%.</li>
-                        </ul>
-                        <!-- <a href="#">View Project</a> -->
-                    </div>
-                </div>
-                <!-- InkFluence AI -->
-                <div class="card fade-element">
-                    <img src="images/inkfluence-ai.png" alt="InkFluence AI">
-                    <div class="card-body">
-                        <h3>InkFluence AI – Blogging Platform (2025)</h3>
-                        <ul>
-                            <li>Built full‑stack platform with Django, React.js, SQLite &amp; LLaMA 3.1 for AI‑driven content generation.</li>
-                            <li>Reduced drafting time ~40% and improved accuracy by 30% via real‑time grammar correction and summarization.</li>
-                        </ul>
-                        <a href="https://github.com/imsg8/Inkfluence-AI">View Project</a>
-                    </div>
-                </div>
-                <!-- Smart Traffic Light -->
-                <div class="card fade-element">
-                    <img src="images/smart-traffic.png" alt="Smart Traffic Light">
-                    <div class="card-body">
-                        <h3>Smart Traffic Light System (2024)</h3>
-                        <ul>
-                            <li>Designed in Verilog to dynamically control signal timings, reducing congestion and boosting throughput 40%.</li>
-                            <li>Tested logic with SUMO simulation, gaining strong circuit‑design and traffic‑flow optimization skills.</li>
-                        </ul>
-                        <!-- <a href="#">View Project</a> -->
-                    </div>
-                </div>
-                <!-- Time Management App -->
-                <div class="card fade-element">
-                    <img src="images/time-management.png" alt="Time Management App">
-                    <div class="card-body">
-                        <h3>Time Management App (2023)</h3>
-                        <ul>
-                            <li>Built desktop scheduler in Java/JavaFX with priority settings and reminders, improving productivity.</li>
-                            <li>Developed robust backend and responsive UI to deepen Java logic‐structuring expertise.</li>
-                        </ul>
-                        <!-- <a href="#">View Project</a> -->
-                    </div>
-                </div>
-                <!-- Smart Plant Watering -->
-                <div class="card fade-element">
-                    <img src="images/plant-watering.png" alt="Smart Plant Watering">
-                    <div class="card-body">
-                        <h3>Smart Plant Watering System (2024)</h3>
-                        <ul>
-                            <li>Automated irrigation with Arduino, sensors &amp; ML, reducing water wastage by up to 45%.</li>
-                            <li>Deployed logistic regression on embedded hardware for real‑time prediction and control.</li>
-                        </ul>
-                        <!-- <a href="#">View Project</a> -->
-                    </div>
-                </div>
-                <!-- Hey Taxi -->
-                <div class="card fade-element">
-                    <img src="images/hey-taxi.png" alt="Hey Taxi">
-                    <div class="card-body">
-                        <h3>Hey Taxi (2024)</h3>
-                        <ul>
-                            <li>Designed relational schema for users, drivers, rides &amp; payments to enable efficient taxi operations.</li>
-                            <li>Optimized SQL queries for performance, strengthening database expertise.</li>
-                        </ul>
-                        <a href="https://github.com/imsg8/Hey-Taxi">View Project</a>
-                    </div>
-                </div>
-                <!-- Bluebird HMS -->
-                <div class="card fade-element">
-                    <img src="images/bluebird-hms.png" alt="Bluebird Hotel Management">
-                    <div class="card-body">
-                        <h3>Bluebird Hotel Management (2024)</h3>
-                        <ul>
-                            <li>Developed PHP/MySQL platform with secure logins, bookings &amp; AI chatbot for streamlined operations.</li>
-                            <li>Centralized booking analytics and improved full‑stack integration skills.</li>
-                        </ul>
-                        <a href="https://github.com/imsg8/Bluebird-Hotel-Management-System">View Project</a>
-                    </div>
-                </div>
+      <div class="grid gap-6">
+        <!-- Cybersecurity Analyst Intern -->
+        <article class="glass rounded-2xl p-6 shadow-soft reveal tilt">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <h3 class="text-xl font-semibold">Cybersecurity Analyst Intern — IIITDM Jabalpur</h3>
+            <span class="badge">May–Jul 2025</span>
+          </div>
+          <p class="mt-1 text-sm text-[var(--muted)]">Indirectly under IIT Kanpur</p>
+          <ul class="mt-4 list-disc marker:text-[var(--primary)] pl-6 space-y-2 text-[15px]">
+            <li>Conducted <strong>dynamic malware analysis</strong> on ELF files to capture runtime behavior and detect malicious patterns in IoT contexts.</li>
+            <li>Developed a model concept for <strong>real‑time malware classification</strong> on-device via dynamic feature extraction.</li>
+            <li>Built expertise in secure embedded systems and on‑device threat detection trade‑offs.</li>
+          </ul>
+        </article>
+        <!-- Research Intern -->
+        <article class="glass rounded-2xl p-6 shadow-soft reveal tilt">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <h3 class="text-xl font-semibold">Research Intern — Manipal Institute of Technology</h3>
+            <span class="badge">2023–Present</span>
             </div>
-        </div>
-    </section>
-
-    <!-- CERTIFICATIONS -->
-    <section id="certifications">
-        <div class="container">
-            <h2 class="heading">Certifications &amp; Courses</h2>
-            <div class="cert-grid">
-                <div class="card fade-element">
-                    <div class="card-body">
-                        <h3>Python &amp; AI</h3>
-                        <p>Microsoft Learn Student Ambassador &amp; Google DSC (KIIT via DevTown)</p>
-                    </div>
-                </div>
-                <div class="card fade-element">
-                    <div class="card-body">
-                        <h3>Python – Robothlon Workshop</h3>
-                        <p>IIT Delhi Rendezvous 2019</p>
-                    </div>
-                </div>
-                <div class="card fade-element">
-                    <div class="card-body">
-                        <h3>AI for Everyone</h3>
-                        <p>DeepLearning.AI via Coursera</p>
-                    </div>
-                </div>
-                <div class="card fade-element">
-                    <div class="card-body">
-                        <h3>Blockchain &amp; Cryptocurrency</h3>
-                        <p>University of Michigan via Coursera</p>
-                    </div>
-                </div>
-                <div class="card fade-element">
-                    <div class="card-body">
-                        <h3>IoT &amp; Embedded Systems</h3>
-                        <p>UC Irvine via Coursera</p>
-                    </div>
-                </div>
-                <div class="card fade-element">
-                    <div class="card-body">
-                        <h3>What is Data Science?</h3>
-                        <p>IBM via Coursera</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section id="contact">
-        <div class="container text-center">
-            <h2 class="heading">Contact</h2>
-            <ul class="contact-list">
-                <li><i class="fa fa-phone"></i> (+91) 82249 47361</li>
-                <li><i class="fa fa-envelope"></i> shivanggulati817@gmail.com</li>
-                <li><i class="fa fa-linkedin"></i> <a href="https://www.linkedin.com/in/shivanggulati810/" target="_blank">linkedin.com/in/shivanggulati810</a></li>
-                <li><i class="fa fa-github"></i> <a href="https://github.com/imsg8" target="_blank">github.com/imsg8</a></li>
-                <li><i class="fa fa-map-marker"></i> Manipal, Karnataka, India</li>
+            <ul class="mt-4 list-disc marker:text-[var(--primary)] pl-6 space-y-2 text-[15px]">
+              <li>Conducted <strong>in-depth research</strong> into the applicability and limitations of <strong>Machine Learning</strong> and <strong>Deep Learning</strong> models for <strong>stock price prediction</strong> on a uniquely volatile asset, <strong>NVIDIA (NVDA)</strong>.</li>
+              <li><strong>Quantified the impact of financial outliers</strong> using the <strong>IQR method</strong>, showing that their presence severely degrades standard model performance, a finding termed the <strong>"Outlier Paradox"</strong>.</li>
+              <li>Advanced the understanding of <strong>model robustness</strong> in dynamic financial environments by comparing <strong>ARIMA</strong>, <strong>LR</strong>, <strong>LSTM</strong>, and <strong>GRU</strong> predictive reliability under varying data conditions and <strong>train-test splits</strong>.</li>
             </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Technical Skills (Detailed) -->
+  <section id="skills" class="relative py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="mb-10">
+        <h2 class="font-display text-3xl md:text-4xl">Technical Skills</h2>
+        <p class="mt-2 text-[var(--muted)]">Extracted from resume. Organized for clarity. Click chips to highlight categories.</p>
+      </div>
+
+      <div class="grid lg:grid-cols-12 gap-8">
+        <!-- Categories (filters) -->
+        <aside class="lg:col-span-4 reveal">
+          <div class="glass rounded-2xl p-6 shadow-soft">
+            <div class="text-sm text-[var(--muted)] mb-3">Categories</div>
+            <div id="skillFilters" class="flex flex-wrap gap-2">
+              <button class="badge hover:bg-white/10" data-skill-filter="lang">Languages</button>
+              <button class="badge hover:bg-white/10" data-skill-filter="lib">Libraries/Frameworks</button>
+              <button class="badge hover:bg-white/10" data-skill-filter="dev">Dev Tools</button>
+              <button class="badge hover:bg-white/10" data-skill-filter="cloud">Cloud/DevOps</button>
+              <button class="badge hover:bg-white/10" data-skill-filter="db">Databases</button>
+              <button class="badge hover:bg-white/10" data-skill-filter="os">Operating Systems</button>
+              <button class="badge hover:bg-white/10" data-skill-filter="ide">IDEs</button>
+              <button class="badge hover:bg-white/10" data-skill-filter="soft">Soft Skills</button>
+              <button class="badge hover:bg-white/10" data-skill-filter="all">Show All</button>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Skill grid -->
+        <div class="lg:col-span-8">
+          <div class="grid sm:grid-cols-2 gap-6">
+            <!-- Languages -->
+            <div class="glass rounded-2xl p-6 shadow-soft reveal" data-skill-cat="lang">
+              <h3 class="font-medium text-lg">Programming Languages</h3>
+              <div class="mt-4 flex flex-wrap gap-2">
+                <span class="badge">C</span>
+                <span class="badge">Swift / SwiftUI</span>
+                <span class="badge">Python</span>
+                <span class="badge">JavaScript</span>
+                <span class="badge">SQL</span>
+                <span class="badge">HTML</span>
+                <span class="badge">CSS</span>
+                <span class="badge">Bash</span>
+                <span class="badge">Verilog</span>
+                <span class="badge">ARM Assembly</span>
+                <span class="badge">CUDA C</span>
+              </div>
+            </div>
+            <!-- Libraries -->
+            <div class="glass rounded-2xl p-6 shadow-soft reveal" data-skill-cat="lib">
+              <h3 class="font-medium text-lg">Libraries & Frameworks</h3>
+              <div class="mt-4 flex flex-wrap gap-2">
+                <span class="badge">OpenCV</span>
+                <span class="badge">NumPy</span>
+                <span class="badge">Pandas</span>
+                <span class="badge">TensorFlow</span>
+                <span class="badge">Keras</span>
+                <span class="badge">Matplotlib</span>
+                <span class="badge">Seaborn</span>
+                <span class="badge">Django</span>
+                <span class="badge">React.js</span>
+              </div>
+            </div>
+            <!-- Dev tools -->
+            <div class="glass rounded-2xl p-6 shadow-soft reveal" data-skill-cat="dev">
+              <h3 class="font-medium text-lg">Development Tools & Skills</h3>
+              <div class="mt-4 flex flex-wrap gap-2">
+                <span class="badge">iOS App Dev</span>
+                <span class="badge">Google SDK</span>
+                <span class="badge">Git</span>
+                <span class="badge">GitHub</span>
+                <span class="badge">Prompt Engineering</span>
+                <span class="badge">LLM Integration</span>
+              </div>
+            </div>
+            <!-- Cloud -->
+            <div class="glass rounded-2xl p-6 shadow-soft reveal" data-skill-cat="cloud">
+              <h3 class="font-medium text-lg">Cloud & DevOps</h3>
+              <div class="mt-4 flex flex-wrap gap-2">
+                <span class="badge">Firebase</span>
+                <span class="badge">GitHub Actions</span>
+              </div>
+            </div>
+            <!-- Databases -->
+            <div class="glass rounded-2xl p-6 shadow-soft reveal" data-skill-cat="db">
+              <h3 class="font-medium text-lg">Databases</h3>
+              <div class="mt-4 flex flex-wrap gap-2">
+                <span class="badge">MySQL</span>
+                <span class="badge">SQL Schema Design</span>
+              </div>
+            </div>
+            <!-- OS -->
+            <div class="glass rounded-2xl p-6 shadow-soft reveal" data-skill-cat="os">
+              <h3 class="font-medium text-lg">Operating Systems</h3>
+              <div class="mt-4 flex flex-wrap gap-2">
+                <span class="badge">Windows</span>
+                <span class="badge">Linux</span>
+                <span class="badge">macOS</span>
+              </div>
+            </div>
+            <!-- IDEs -->
+            <div class="glass rounded-2xl p-6 shadow-soft reveal" data-skill-cat="ide">
+              <h3 class="font-medium text-lg">IDEs & Editors</h3>
+              <div class="mt-4 flex flex-wrap gap-2">
+                <span class="badge">VS Code</span>
+                <span class="badge">Xcode</span>
+                <span class="badge">IntelliJ IDEA</span>
+                <span class="badge">Code::Blocks</span>
+              </div>
+            </div>
+            <!-- Soft -->
+            <div class="glass rounded-2xl p-6 shadow-soft reveal" data-skill-cat="soft">
+              <h3 class="font-medium text-lg">Soft Skills</h3>
+              <div class="mt-4 flex flex-wrap gap-2">
+                <span class="badge">Teamwork</span>
+                <span class="badge">Problem Solving</span>
+                <span class="badge">Innovation</span>
+                <span class="badge">Communication</span>
+                <span class="badge">Adaptability</span>
+                <span class="badge">Agile Collaboration</span>
+                <span class="badge">Public Speaking</span>
+              </div>
+            </div>
+          </div>
         </div>
-    </section>
+      </div>      
+    </div>
+  </section>
 
-    <!-- FOOTER -->
-    <footer>
-        <p>&copy; 2025 Shivang Gulati</p>
-        <ul class="social">
-            <li><a href="mailto:shivanggulati817@gmail.com"><i class="fa fa-envelope"></i></a></li>
-            <li><a href="https://www.linkedin.com/in/shivanggulati810/" target="_blank"><i class="fa fa-linkedin"></i></a></li>
-            <li><a href="https://github.com/imsg8" target="_blank"><i class="fa fa-github"></i></a></li>
-        </ul>
-    </footer>
+  <!-- Projects (Bento / Cards) -->
+  <section id="projects" class="relative py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="mb-10">
+        <h2 class="font-display text-3xl md:text-4xl">Projects</h2>
+        <p class="mt-2 text-[var(--muted)]">A selection of end‑to‑end builds across iOS, full‑stack, ML, and embedded.</p>
+      </div>
 
-    <!-- SCRIPTS -->
-    <script>
-        // Mobile menu toggle
-        const mobileToggle = document.getElementById('mobile-menu-open');
-        const menu = document.getElementById('menu');
-        mobileToggle.addEventListener('click', () => {
-            menu.classList.toggle('open');
-        });
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- MyCalLabs (MyCalCount + MyCalAI) -->
+        <article class="glass rounded-2xl p-6 shadow-soft reveal tilt">
+          <div class="flex items-center justify-between">
+            <a href="https://mycallabs.com" class="text-xl font-semibold text-[var(--primary)] underline underline-offset-4 inline-flex items-center gap-2">MyCalLabs ↗</a>
+            <span class="badge">New</span>
+          </div>
+          <p class="mt-3 text-[var(--muted)]">A comprehensive health toolkit which enables users to generate BCA report and custom tailored meal plans.</p>
+          <div class="mt-4 space-y-3">
+            <div class="rounded-xl bg-white/5 p-4">
+              <div class="font-medium">MyCalCount</div>
+              <p class="text-sm text-[var(--muted)] mt-1">Calorie & macro tracker built with <strong>Python and Flask</strong>. It uses your metrics to tell you your BCA analysis and help you visualise your goals with easy-to-understand charts.</p>
+              <div class="mt-3 flex flex-wrap gap-2 text-xs">
+                <span class="badge">Full‑Stack</span><span class="badge">CoreML</span><span class="badge">Health UX</span>
+              </div>
+            </div>
+            <div class="rounded-xl bg-white/5 p-4">
+              <div class="font-medium">MyCalAI</div>
+              <p class="text-sm text-[var(--muted)] mt-1">AI-based meal planning assistant that generates personalized meal plans and recipes based on user preferences and dietary restrictions.</p>
+              <div class="mt-3 flex flex-wrap gap-2 text-xs">
+                <span class="badge">Full‑Stack</span><span class="badge">AI</span><span class="badge">Prompting</span>
+              </div>
+            </div>
+          </div>
+        </article>
 
-        // Unified scroll‐reveal for both fade‐elements and skill‐items
-        const faders = document.querySelectorAll('.fade-element, .skill-item');
-        const reveal = () => {
-            const trigger = window.innerHeight - 50;
-            faders.forEach(el => {
-                if (el.getBoundingClientRect().top < trigger) {
-                    el.classList.add('visible');
-                }
-            });
-        };
-        window.addEventListener('scroll', reveal);
-        window.addEventListener('load', reveal);
+        <!-- InkFluence AI -->
+        <article class="glass rounded-2xl p-6 shadow-soft reveal tilt">
+          <h3 class="text-xl font-semibold">InkFluence AI — Blogging Platform (2025)</h3>
+          <p class="mt-3 text-[var(--muted)]">Full‑Stack writing assistant with AI‑driven grammar, draft generation, and summarization.</p>
+          <ul class="mt-3 list-disc marker:text-[var(--primary)] pl-6 space-y-2 text-sm">
+            <li>Django backend + React frontend + LLaMA pipeline integration.</li>
+            <li>Rich text editor with real‑time suggestions to streamline drafting.</li>
+          </ul>
+          <div class="mt-4 flex flex-wrap gap-2 text-xs">
+            <span class="badge">Django</span><span class="badge">React.js</span><span class="badge">SQLite</span><span class="badge">LLaMA</span>
+          </div>
+          <a class="mt-4 inline-flex items-center gap-2 text-sm underline underline-offset-4 hover:text-[var(--primary)]"
+             href="https://github.com/imsg8/Inkfluence-AI" target="_blank" rel="noopener noreferrer">View Project</a>
+        </article>
 
-        // NEW: only grabs anchors whose href does NOT start with “#”
-        document.querySelectorAll('a[href]:not([href^="#"])').forEach(a => {
-        a.setAttribute('target', '_blank');
-        a.setAttribute('rel', 'noopener noreferrer');
-        });
+        <!-- RiPlay -->
+        <article class="glass rounded-2xl p-6 shadow-soft reveal tilt">
+          <h3 class="text-xl font-semibold">RiPlay — iOS App (2024–Present)</h3>
+          <ul class="mt-3 list-disc marker:text-[var(--primary)] pl-6 space-y-2 text-sm">
+            <li>White‑noise app for toddlers with intuitive <strong>SwiftUI</strong> interface.</li>
+            <li>Firebase Crashlytics; real‑time sound controls & visuals.</li>
+          </ul>
+          <div class="mt-4 flex flex-wrap gap-2 text-xs">
+            <span class="badge">Swift</span><span class="badge">SwiftUI</span><span class="badge">Firebase</span>
+          </div>
+        </article>
 
-    </script>
-    
+        <!-- Smart Traffic Light -->
+        <article class="glass rounded-2xl p-6 shadow-soft reveal tilt">
+          <h3 class="text-xl font-semibold">Smart Traffic Light System (2024)</h3>
+          <ul class="mt-3 list-disc marker:text-[var(--primary)] pl-6 space-y-2 text-sm">
+            <li>Verilog design with dynamic signal timing for congestion scenarios.</li>
+            <li>Validated logic using SUMO; strengthened digital design skills.</li>
+          </ul>
+          <div class="mt-4 flex flex-wrap gap-2 text-xs">
+            <span class="badge">Verilog</span><span class="badge">SUMO</span>
+          </div>
+        </article>
+
+        <!-- Time Management App -->
+        <article class="glass rounded-2xl p-6 shadow-soft reveal tilt">
+          <h3 class="text-xl font-semibold">Time Management App (2023)</h3>
+          <ul class="mt-3 list-disc marker:text-[var(--primary)] pl-6 space-y-2 text-sm">
+            <li>Desktop task scheduling with priority & reminder workflows.</li>
+            <li>Built with Java/JavaFX; responsive UI and clean logic structuring.</li>
+          </ul>
+          <div class="mt-4 flex flex-wrap gap-2 text-xs">
+            <span class="badge">Java</span><span class="badge">JavaFX</span>
+          </div>
+        </article>
+
+        <!-- Smart Plant Watering -->
+        <article class="glass rounded-2xl p-6 shadow-soft reveal tilt">
+          <h3 class="text-xl font-semibold">Smart Plant Watering System (2024)</h3>
+          <ul class="mt-3 list-disc marker:text-[var(--primary)] pl-6 space-y-2 text-sm">
+            <li>Arduino + sensors + ML for predictive irrigation; logistic regression deployment.</li>
+            <li>Hands‑on with embedded ML, sensor calibration, real‑time control.</li>
+          </ul>
+          <div class="mt-4 flex flex-wrap gap-2 text-xs">
+            <span class="badge">Python</span><span class="badge">Embedded C</span><span class="badge">Arduino</span>
+          </div>
+        </article>
+
+        <!-- Hey Taxi -->
+        <article class="glass rounded-2xl p-6 shadow-soft reveal tilt">
+          <h3 class="text-xl font-semibold">Hey Taxi (2024)</h3>
+          <ul class="mt-3 list-disc marker:text-[var(--primary)] pl-6 space-y-2 text-sm">
+            <li>Relational schema for users, drivers, rides, and payments.</li>
+            <li>Optimized queries and indexing for performance.</li>
+          </ul>
+          <div class="mt-4 flex flex-wrap gap-2 text-xs">
+            <span class="badge">SQL</span><span class="badge">Database Design</span>
+          </div>
+          <a class="mt-4 inline-flex items-center gap-2 text-sm underline underline-offset-4 hover:text-[var(--primary)]"
+             href="https://github.com/imsg8/Hey-Taxi" target="_blank" rel="noopener noreferrer">View Project</a>
+        </article>
+
+        <!-- Bluebird HMS -->
+        <article class="glass rounded-2xl p-6 shadow-soft reveal tilt">
+          <h3 class="text-xl font-semibold">Bluebird Hotel Management (2024)</h3>
+          <ul class="mt-3 list-disc marker:text-[var(--primary)] pl-6 space-y-2 text-sm">
+            <li>Secure logins, bookings, and integrated AI chatbot.</li>
+            <li>Full‑Stack with PHP/MySQL; centralized booking analytics.</li>
+          </ul>
+          <div class="mt-4 flex flex-wrap gap-2 text-xs">
+            <span class="badge">PHP</span><span class="badge">MySQL</span><span class="badge">AI Chatbot</span>
+          </div>
+          <a class="mt-4 inline-flex items-center gap-2 text-sm underline underline-offset-4 hover:text-[var(--primary)]"
+             href="https://github.com/imsg8/Bluebird-Hotel-Management-System" target="_blank" rel="noopener noreferrer">View Project</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Education -->
+  <section id="education" class="relative py-20">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="mb-10">
+        <h2 class="font-display text-3xl md:text-4xl">Education</h2>
+        <p class="mt-2 text-[var(--muted)]">Merged from resume + prior site details.</p>
+      </div>
+
+      <div class="grid gap-6">
+        <article class="glass rounded-2xl p-6 shadow-soft reveal tilt">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <h3 class="text-xl font-semibold">B.Tech., Computer Science & Engineering — Manipal Institute of Technology</h3>
+            <span class="badge">Sep 2022 – Jun 2026</span>
+          </div>
+          <p class="mt-2 text-[var(--muted)]">CGPA: <span class="text-[var(--fg)] font-medium">8.15</span> &nbsp;|&nbsp; Latest Semester GPA: <span class="text-[var(--fg)] font-medium">8.9</span></p>
+        </article>
+
+        <article class="glass rounded-2xl p-6 shadow-soft reveal tilt">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <h3 class="text-lg font-medium">PCM Stream — Grade 12, Delhi Public School</h3>
+            <span class="badge">Mar 2020 – May 2022</span>
+          </div>
+          <p class="mt-2 text-[var(--muted)]">Percentage: <span class="text-[var(--fg)] font-medium">81.8%</span></p>
+        </article>
+
+        <article class="glass rounded-2xl p-6 shadow-soft reveal tilt">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <h3 class="text-lg font-medium">Grade 10, Delhi Public School</h3>
+            <span class="badge">Mar 2018 – May 2020</span>
+          </div>
+          <p class="mt-2 text-[var(--muted)]">Percentage: <span class="text-[var(--fg)] font-medium">91.8%</span></p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Certifications -->
+  <section id="certs" class="relative py-20">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="mb-10">
+        <h2 class="font-display text-3xl md:text-4xl">Certifications & Courses</h2>
+        <p class="mt-2 text-[var(--muted)]">A snapshot of continuous learning.</p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="glass rounded-2xl p-6 shadow-soft reveal">
+          <h3 class="font-medium">Python & AI</h3>
+          <p class="text-[var(--muted)] mt-2">Microsoft Learn Student Ambassador & Google DSC (KIIT via DevTown)</p>
+        </div>
+        <div class="glass rounded-2xl p-6 shadow-soft reveal">
+          <h3 class="font-medium">Robothlon Workshop (offline)</h3>
+          <p class="text-[var(--muted)] mt-2">IIT Delhi Rendezvous 2019</p>
+        </div>
+        <div class="glass rounded-2xl p-6 shadow-soft reveal">
+          <h3 class="font-medium">AI for Everyone</h3>
+          <p class="text-[var(--muted)] mt-2">DeepLearning.AI (Coursera)</p>
+        </div>
+        <div class="glass rounded-2xl p-6 shadow-soft reveal">
+          <h3 class="font-medium">Blockchain & Cryptocurrency Explained</h3>
+          <p class="text-[var(--muted)] mt-2">University of Michigan (Coursera)</p>
+        </div>
+        <div class="glass rounded-2xl p-6 shadow-soft reveal">
+          <h3 class="font-medium">IoT & Embedded Systems</h3>
+          <p class="text-[var(--muted)] mt-2">UC Irvine (Coursera)</p>
+        </div>
+        <div class="glass rounded-2xl p-6 shadow-soft reveal">
+          <h3 class="font-medium">What is Data Science?</h3>
+          <p class="text-[var(--muted)] mt-2">IBM (Coursera)</p>
+        </div>
+        <div class="glass rounded-2xl p-6 shadow-soft reveal">
+          <h3 class="font-medium">Beginner SEO with Semrush</h3>
+          <p class="text-[var(--muted)] mt-2">Semrush Academy</p>
+        </div>
+        <div class="glass rounded-2xl p-6 shadow-soft reveal">
+          <h3 class="font-medium">Google Data Analytics (9‑course Professional Certification)</h3>
+          <!-- <ul class="mt-3 list-disc marker:text-[var(--primary)] pl-6 space-y-1 text-sm">
+          <li>Foundations: Data, Data, Everywhere</li>
+          <li>Ask Questions to Make Data‑Driven Decisions</li>
+          <li>Prepare Data for Exploration</li>
+          <li>Process Data from Dirty to Clean</li>
+          <li>Analyze Data to Answer Questions</li>
+          <li>Share Data Through the Art of Visualization</li>
+          <li>Data Analysis with R Programming</li>
+          <li>Capstone: Complete a Case Study</li>
+          <li>Accelerate Your Job Search with AI</li>
+          </ul> -->
+          <p class="text-[var(--muted)] mt-2">Google (Coursera)</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="relative py-20">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="font-display text-3xl md:text-4xl">Let’s build something thoughtful</h2>
+      <p class="mt-2 text-[var(--muted)]">Available for Software Engineering, iOS, or ML‑adjacent roles.</p>
+
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+        <a href="mailto:shivanggulati817@gmail.com" class="btn rounded-xl bg-[var(--primary)] text-black px-5 py-3 font-semibold">
+          Email
+        </a>
+        <a href="https://www.linkedin.com/in/shivanggulati810/" target="_blank" rel="noopener noreferrer" class="btn rounded-xl bg-white/10 hover:bg-white/20 px-5 py-3">
+          LinkedIn
+        </a>
+        <a href="https://github.com/imsg8" target="_blank" rel="noopener noreferrer" class="btn rounded-xl bg-white/10 hover:bg-white/20 px-5 py-3">
+          GitHub
+        </a>
+        <a href="assets/Shivang_Gulati_Resume.pdf" target="_blank" rel="noopener noreferrer" class="btn rounded-xl bg-white/10 hover:bg-white/20 px-5 py-3">
+          Download Resume
+        </a>
+      </div>
+
+      <div class="mt-6 text-sm text-[var(--muted)]">
+        <div><strong>Phone:</strong> (+91) 82249 47361</div>
+        <div>Manipal, Karnataka, India</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="relative py-10">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="glass rounded-2xl p-5 flex flex-col md:flex-row items-center justify-between gap-3">
+        <p class="text-sm text-[var(--muted)]">&copy; <span id="y"></span> Shivang Gulati. All rights reserved</p>
+        <div class="flex items-center gap-4 text-sm">
+          <a class="underline underline-offset-4 hover:text-[var(--primary)]" href="mailto:shivanggulati817@gmail.com">Email</a>
+          <a class="underline underline-offset-4 hover:text-[var(--primary)]" href="https://www.linkedin.com/in/shivanggulati810/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a class="underline underline-offset-4 hover:text-[var(--primary)]" href="https://github.com/imsg8" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts: reveal, direction-aware hide, spotlight, progress, filters -->
+  <script>
+    // Mobile menu
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (menuBtn) menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+
+    // Open all external links in new tab
+    document.querySelectorAll('a[href]').forEach(a => {
+      try {
+        const url = new URL(a.href, location.href);
+        if (url.origin !== location.origin && !a.hasAttribute('target')) {
+          a.setAttribute('target', '_blank');
+          a.setAttribute('rel', 'noopener noreferrer');
+        }
+      } catch (e) {}
+    });
+
+    // Spotlight follows cursor
+    const root = document.documentElement;
+    window.addEventListener('pointermove', e => {
+      root.style.setProperty('--mx', e.clientX + 'px');
+      root.style.setProperty('--my', e.clientY + 'px');
+    });
+
+    // Scroll progress bar
+    const progress = document.getElementById('scroll-progress');
+    const setProgress = () => {
+      const h = document.documentElement;
+      const scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight);
+      progress.style.width = (scrolled * 100) + '%';
+    };
+    document.addEventListener('scroll', setProgress, { passive: true });
+    window.addEventListener('load', setProgress);
+
+    // Reveal on scroll — appear on scroll down, disappear when scrolling up
+    let lastY = window.scrollY;
+    const cards = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && window.scrollY >= lastY) {
+          entry.target.classList.add('in-view');
+        } else if (!entry.isIntersecting && window.scrollY < lastY) {
+          entry.target.classList.remove('in-view');
+        }
+      });
+      lastY = window.scrollY;
+    }, { threshold: 0.15 });
+    cards.forEach(el => io.observe(el));
+
+    // Tilt hover subtle
+    document.querySelectorAll('.tilt').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left, y = e.clientY - rect.top;
+        const rx = - (y - rect.height/2) / 80;
+        const ry = (x - rect.width/2) / 80;
+        card.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-2px)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+      });
+    });
+
+    // Skills filters (shadcn-like badges)
+    const filters = document.getElementById('skillFilters');
+    const skillCards = document.querySelectorAll('[data-skill-cat]');
+    if (filters) {
+      filters.addEventListener('click', (e) => {
+        const btn = e.target.closest('[data-skill-filter]');
+        if (!btn) return;
+        const cat = btn.dataset.skillFilter;
+        [...filters.querySelectorAll('button')].forEach(b => b.classList.remove('ring-1','ring-[var(--ring)]'));
+        btn.classList.add('ring-1','ring-[var(--ring)]');
+        if (cat === 'all') {
+          skillCards.forEach(c => c.classList.remove('hidden'));
+        } else {
+          skillCards.forEach(c => c.classList.toggle('hidden', c.dataset.skillCat !== cat));
+        }
+      });
+    }
+
+    // Dynamic year
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
 </body>
+</html>
